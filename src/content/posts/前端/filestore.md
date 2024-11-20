@@ -5,7 +5,7 @@ published: 2024-10-27
 draft: false
 tags: [前端入门]
 category: 前端
-image: https://img.picui.cn/free/2024/10/27/671e62904fa09.jpg
+image: /src/assets/source-of-blog/blog-1/117357277_p0.jpg
 ---
 ### 叠甲
 > 这篇文章适用于偏新手的前端观看写的本意在于便于前端入门者看得懂  
@@ -13,7 +13,7 @@ image: https://img.picui.cn/free/2024/10/27/671e62904fa09.jpg
 > 如有描述不当处 感谢指出
 # 总结构
 我们先来看一个`vue`基础项目的文件结构
-![1730044797246.png](https://img.picui.cn/free/2024/10/27/671e628fa8b2c.png)
+![vue文件夹](/src/assets/source-of-blog/blog-1/Snipaste_2024-11-20_10-55-27.png)
 ## 分类
 这里作为一个前端入门者 我们只需要知道哪些是我们需要用的 哪些是我们不需要的就行
 所以我姑且将文件分为以下几类
@@ -26,7 +26,7 @@ image: https://img.picui.cn/free/2024/10/27/671e62904fa09.jpg
 那么 现在来具体介绍下`src文件夹`下的结构 能不能认清里面的文件结构对于写码体验有极大影响 (*可不要成为文件瞎放的人呐*)
 
 以下放我的blog项目(一个`astro项目`)的文件配置
-![1730044807805.png](https://img.picui.cn/free/2024/10/27/671e62903dd2a.png)
+![1730044807805.png](/src/assets/source-of-blog/blog-1/Snipaste_2024-11-20_21-42-17.png)
 这里不同类型的项目下`src`里的东西会不一样 主要先认识下共有的一些东西
 >1. pages(`vue`中为views)字面意思 也就是存放前端项目的`页面` 比如 loign.vue ,register.vue.... 每一个`页面`对应着一个项目中实际的页面
 >2. assets--静态资源存储 也就是图片之类的东西放里面 然后用来在前端页面里渲染出来
@@ -35,7 +35,7 @@ image: https://img.picui.cn/free/2024/10/27/671e62904fa09.jpg
 
 以上是基础中的基础 什么项目中一定都会有的部分 接下来再说一些`src`常见的文件夹/文件夹
 
-这里再贴个`vue项目`的`src`文件夹结构![1730044777003.png](https://img.picui.cn/free/2024/10/27/671e628f8ed24.png)
+这里再贴个`vue项目`的`src`文件夹结构![1730044777003.png](/src/assets/source-of-blog/blog-1/Snipaste_2024-11-20_21-43-06.png)
 >1. router--`vue`中`router`功能的配置文件的储存位置 详细可以查一查vue中的router的相关信息
 >2. layout-- 这里又牵引到一个嵌套结构 也就是说我们可以提前写一个`大模板`(比如一个layout.astro/layout.vue)用来`复用性的`写你想要配置的`page`的总布局 然后再在你正在写的那个`page`中引用这个模板 把内容丢到模板里
 
