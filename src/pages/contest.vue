@@ -123,7 +123,7 @@
         </div>
         <div id="bottom">
             <div id="img" style="width: 300px; ">
-                <img src="/src/assets/images/头像喵.jpg" alt="加载不出来喵" style="height: 200px;">
+                <img src="https://zheyi.in/_astro/%E5%A4%B4%E5%83%8F%E5%96%B5.CFd65NxP_1CccCS.webp" alt="加载不出来喵" style="height: 200px;">
             </div>
             <div class="block flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
                 <div class="content card-base z-10 px-9 py-6 relative w-full ">
@@ -240,7 +240,7 @@ function delext(id) {
 const floor = ref();
 </script>
 
-<style>
+<style scoped>
 /* CSS没有规范的排序 自己加油找哪个在哪 */
 .smallinput {
     width: 50px;
