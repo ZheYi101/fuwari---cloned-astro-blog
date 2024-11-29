@@ -186,7 +186,7 @@ const ResScore = computed(() =>//结局分
 const QiTa = computed(() =>//其他加分/扣分 比如取钱量(money)什么的
   ((BaBieTa.value) ? 50 : 0) + 
   ((PianBan.value) ? 50 : 0) + 
-  ((typeof (Ya_Gou_Xiong.value) === "number") ? 20 : 0) + 
+  ((typeof (Ya_Gou_Xiong.value) === "number") ? 20*Ya_Gou_Xiong.value : 0) + 
   ((typeof (Four_Free.value) === "number") ? 10 * Four_Free.value : 0) + 
   ((typeof (Five_Free.value) === "number") ? 20 * Five_Free.value : 0) + 
   ((typeof (Six_Free.value) === "number") ? 50 * Six_Free.value : 0)+
