@@ -207,7 +207,7 @@ const extlist = ref(//通过的有加分的关卡的列表
 );
 //ALLext是所有关卡 会自动在中间那里渲染 必须要填 name point floor属性 special是用来判断是否要判定如(关卡是紧急 还有额外加分)等的判定 在函数addext中有相关判定
 const Allext =[{name:"战场侧面",point:10,floor:0,special:true,Jinji:false},{name:"鸭速公路",point:50,floor:0,special:true,Jinji:false},
-{name:"卡兹瀑布",point:30,floor:2},{name:"大棋一盘",point:20,floor:3},{name:"神出鬼没",point:80,floor:4},{name:"混沌",point:50,floor:4},{name:"猩红甬道",point:20,floor:4},{name:"计划耕种",point:40,floor:4},
+{name:"卡兹瀑布",point:30,floor:2},{name:"大棋一盘",point:20,floor:3},{name:"神出鬼没",point:80,floor:4},{name:"混沌",point:50,floor:4},{name:"猩红甬道",point:20,floor:4},{name:"计划耕种",point:40,floor:5},
 {name:"建制",point:100,floor:5,special:true,SuiGu:false,ShiJun:false,WuLou:false},{name:"神圣渴求",point:80,floor:6},{name:"谋求共识",point:80,floor:6},{name:"外道",point:100,floor:6},{name:"洞天福地",point:120,floor:6}];
 
 const spe = ref({//用来特判加分的变量 与中间那一框的input type=checkbox 对应
