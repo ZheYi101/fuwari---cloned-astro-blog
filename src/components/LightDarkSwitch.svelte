@@ -14,20 +14,21 @@ import { onMount } from 'svelte'
 const seq: LIGHT_DARK_MODE[] = [LIGHT_MODE, DARK_MODE, AUTO_MODE]
 let mode: LIGHT_DARK_MODE = AUTO_MODE
 onMount(() => {
-  mode = getStoredTheme()
-  const darkModePreference = window.matchMedia('(prefers-color-scheme: dark)')
-  const changeThemeWhenSchemeChanged: Parameters<
-    typeof darkModePreference.addEventListener<'change'>
-  >[1] = e => {
-    applyThemeToDocument(mode)
-  }
-  darkModePreference.addEventListener('change', changeThemeWhenSchemeChanged)
-  return () => {
-    darkModePreference.removeEventListener(
-      'change',
-      changeThemeWhenSchemeChanged,
-    )
-  }
+  applyThemeToDocument(LIGHT_MODE)
+  // mode = getStoredTheme() 原码
+  // const darkModePreference = window.matchMedia('(prefers-color-scheme: dark)')
+  // const changeThemeWhenSchemeChanged: Parameters<
+  //   typeof darkModePreference.addEventListener<'change'>
+  // >[1] = e => {
+  //   applyThemeToDocument(mode)
+  // }
+  // darkModePreference.addEventListener('change', changeThemeWhenSchemeChanged)
+  // return () => {
+  //   darkModePreference.removeEventListener(
+  //     'change',
+  //     changeThemeWhenSchemeChanged,
+  //   )
+  // }
 })
 
 function switchScheme(newMode: LIGHT_DARK_MODE) {

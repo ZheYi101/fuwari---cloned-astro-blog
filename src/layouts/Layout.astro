@@ -107,7 +107,8 @@ const bannerOffset = bannerOffsetByPosition[siteConfig.banner.position || 'cente
 		))}
 		<!-- Set the theme before the page is rendered to avoid a flash -->
 		<script is:inline define:vars={{DEFAULT_THEME: DEFAULT_THEME, LIGHT_MODE: LIGHT_MODE, DARK_MODE: DARK_MODE, AUTO_MODE: AUTO_MODE}}>
-			const theme = localStorage.getItem('theme') || DEFAULT_THEME;
+			// const theme = localStorage.getItem('theme') || DEFAULT_THEME;  原码
+			const theme = LIGHT_MODE //修改 只有LIGHT_MODE
 			switch (theme) {
 				case LIGHT_MODE:
 					document.documentElement.classList.remove('dark');
