@@ -24,6 +24,11 @@ export const siteConfig: SiteConfig = {
       url: ''                // (Optional) URL link to the original artwork or artist's page
     }
   },
+  lightDarkMode: {
+    fixed: true,
+    defaultmode: "light"
+  }
+  ,
   favicon: [    // Leave this array empty to use the default favicon
     // {
     //   src: '/favicon/icon.png',    // Path of the favicon, relative to the /public directory

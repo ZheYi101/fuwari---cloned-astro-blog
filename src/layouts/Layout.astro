@@ -198,7 +198,7 @@ import {
 	// SizeObserverPlugin,
 	// ClickScrollPlugin
 } from 'overlayscrollbars';
-import {getHue, getStoredTheme, setHue, setTheme} from "../utils/setting-utils";
+import {getHue, getStoredTheme, setHue, setTheme ,getDefaultHue, getDefaultMode} from "../utils/setting-utils";
 import {pathsEqual, url} from "../utils/url-utils";
 
 	/* Preload fonts */
@@ -267,12 +267,19 @@ setClickOutsideToClose("search-panel", ["search-panel", "search-bar", "search-sw
 
 
 function loadTheme() {
-	const theme = getStoredTheme()
+	let theme = getStoredTheme()
+	if(theme != getDefaultMode()) {
+		theme = getDefaultMode()
+	}
 	setTheme(theme)
 }
 
 function loadHue() {
-	setHue(getHue())
+	let hue = getHue()
+	if(hue!=getDefaultHue()) {
+		hue = getDefaultHue()
+	}
+	setHue(hue)
 }
 
 function initCustomScrollbar() {

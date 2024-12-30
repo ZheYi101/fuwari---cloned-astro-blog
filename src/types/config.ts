@@ -20,7 +20,10 @@ export type SiteConfig = {
       url?: string
     }
   }
-
+  lightDarkMode: {
+    fixed: boolean
+    defaultmode: "light" | "dark"
+  }
   favicon: Favicon[]
 }
 

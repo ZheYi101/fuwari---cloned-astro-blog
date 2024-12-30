@@ -5,6 +5,8 @@ import {
   DEFAULT_THEME,
   LIGHT_MODE,
 } from '@constants/constants.ts'
+import { string } from 'astro:schema'
+import exp from 'node:constants'
 
 export function getDefaultHue(): number {
   const fallback = '250'
@@ -51,4 +53,9 @@ export function setTheme(theme: LIGHT_DARK_MODE): void {
 
 export function getStoredTheme(): LIGHT_DARK_MODE {
   return (localStorage.getItem('theme') as LIGHT_DARK_MODE) || DEFAULT_THEME
+}
+
+export function getDefaultMode(): LIGHT_DARK_MODE {
+  const configCarrier = document.getElementById('config-carrier')
+  return ((configCarrier?.dataset.lightDarkMode || LIGHT_MODE) as LIGHT_DARK_MODE)
 }
