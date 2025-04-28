@@ -28,7 +28,7 @@ elmUI中如 `Card`,`Button`, `input`, `icon` 这些 是作为`某一个`页面�
 组件的拓展性都不错 比如`input`组件
 ![alt text](/source-of-blog/blog-3%20elmUI/image-1.png)
 如图 左边的几个input 像邮箱那里 可以直接在input里添加上右侧的**发送验证码**按钮
-右上的是大型文本框 写学期总结的地方() 右下是上传文件用的input 配置相关的函数就能直接使用
+右上的是大型文本框 写学期总结的地方()
 ## 布局(功能)组件
 如`el-dialog`(弹窗组件) `el-info`(提示信息功能) `el-message`
 这些组件的泛用性个人认为会高于`Button`什么的 而且也更重要
@@ -45,12 +45,14 @@ elmUI中如 `Card`,`Button`, `input`, `icon` 这些 是作为`某一个`页面�
 
 # 其他
 ## bug
-### 继承父元素属性
-elm的组件默认最外层都是`display: block;` 要是你在它外面套了一层`display: flex;`
-然后子元素继承父元素的属性 也成了flex布局 就会变的很奇怪
+### 手动添加elm内置的class名
+elmUI有内置的class名以及对应属性 所以不要乱使用可能和`内置class名`**重叠**的`class名`
+如下 我由于在一个`<el-upload/>`的最外层额外写了个**class="el-upload"** 导致如下属性侵入
+![alt text](/source-of-blog/blog-3%20elmUI/image-class.png)
+其中display:inline-flex; 导致此处变为flex布局 故导致如下bug
 
 正常的![正常的](/source-of-blog/blog-3%20elmUI/image-4.png)
-套了层flex![套了层flex](/source-of-blog/blog-3%20elmUI/image-3.png)
+在组件最外层多写了`class="el-upload"`![套了层flex](/source-of-blog/blog-3%20elmUI/image-3.png)
 ### 样式渗透时多加了scoped
 elm的组件源码正常我们不会去改 那这时候要是我们想稍微对这组件小改个色 或控个尺寸 咋办呢
 这时候就可以在`<style>`里写 来操作
@@ -58,7 +60,7 @@ elm的组件源码正常我们不会去改 那这时候要是我们想稍微对�
 先F12找到这个组件你要改的那一层的class名
 `这里注意 elm的组件基本都好几层 别改错层了`
 ![alt text](/source-of-blog/blog-3%20elmUI/image-5.png)
-如果你有在.vue的style里都加上`scoped`的习惯的话 就单独起一个`<style>` 不加scoped
+如果你有在.vue的style里都加上`scoped`的习惯的话 就单独起一个`<style>` 不加scoped 或者在外层套个`:global()`
 如下
 ![alt text](/source-of-blog/blog-3%20elmUI/image-6.png)
 
