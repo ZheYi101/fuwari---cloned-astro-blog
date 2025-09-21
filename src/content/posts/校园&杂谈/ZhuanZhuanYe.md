@@ -7,7 +7,6 @@ tags: [校园]
 category: 校园&杂谈
 image: /source-of-blog/blog-4%20zzy/komiji.jpg
 ---
-`基本写完 后续可能还会再写点`
 
 如果你是刚入学看的本篇博客 推荐之后也再看看
 
