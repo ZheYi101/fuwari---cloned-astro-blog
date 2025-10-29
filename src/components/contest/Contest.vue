@@ -10,7 +10,7 @@
                             <div>前3层片瓣<input type="checkbox" v-model="PianBan"></div>
                             <div>鸭/熊/狗: <input type="number" v-model="Ya_Gou_Xiong" class="smallinput"></div>
                             <div>不听指挥: <input type="number" v-model="Not_Seeing" class="smallinput"></div>
-                        </div>
+                    ``    </div>
                         <div>
                             <div>4星临招: <input type="number" v-model="Four_Free" class="smallinput"></div>
                             <div>5星临招: <input type="number" v-model="Five_Free" class="smallinput"></div>
@@ -147,94 +147,181 @@
     </div>
 </template>
 <script setup>
-import { ref, computed } from 'vue';
+import { computed, ref } from "vue";
+
 function test() {
-    console.log(money.value)
-    console.log(Math.min(50*(50-money.value),0))
+	console.log(money.value);
+	console.log(Math.min(50 * (50 - money.value), 0));
 }
 //下面是 QiTa分对应的一些变量 比如取钱数(money)什么的
-const AsaNa = ref(false);//有没有阿萨纳
-const GunDongXianZu = ref(false);//有没有滚动先祖
-const BaBieTa = ref(false);//有没有2层巴别塔
-const PianBan = ref(false);//有没有前3层片瓣
-const Ya_Gou_Xiong = ref();//鸭子 狗 熊 的击杀数
-const Four_Free = ref();//四星临招数
+const AsaNa = ref(false); //有没有阿萨纳
+const GunDongXianZu = ref(false); //有没有滚动先祖
+const BaBieTa = ref(false); //有没有2层巴别塔
+const PianBan = ref(false); //有没有前3层片瓣
+const Ya_Gou_Xiong = ref(); //鸭子 狗 熊 的击杀数
+const Four_Free = ref(); //四星临招数
 const Five_Free = ref();
 const Six_Free = ref();
-const money = ref();//取钱数
-const Not_Seeing = ref();//不听指挥次数
-const SpecialPoint = ref((AsaNa.value? 20:0)+(GunDongXianZu.value? 10:0));//在addext中调用的变量 用来计算关卡加分的通用额外加分
+const money = ref(); //取钱数
+const Not_Seeing = ref(); //不听指挥次数
+const SpecialPoint = ref(
+	(AsaNa.value ? 20 : 0) + (GunDongXianZu.value ? 10 : 0),
+); //在addext中调用的变量 用来计算关卡加分的通用额外加分
 //下面是几个得分类型
-const ExtScore = computed(() => {//关卡加分
-  return extlist.value.reduce((sum, item) => sum + (item.point+SpecialPoint.value || 0), 0);
+const ExtScore = computed(() => {
+	//关卡加分
+	return extlist.value.reduce(
+		(sum, item) => sum + (item.point + SpecialPoint.value || 0),
+		0,
+	);
 });
-const basscore = ref();//游戏结算分
-const enjscore = ref();//观赏分
+const basscore = ref(); //游戏结算分
+const enjscore = ref(); //观赏分
 //结局
 const ending1 = ref("0");
 const ending2 = ref("0");
 const ending3 = ref("0");
 const ending4 = ref("0");
-const ResScore = computed(() =>//结局分
-    ((ending1.value=="0") ? 0:(ending1.value=="normal"? 0:ending1.value=="normal+"?50:ending1.value=="sp"?200:ending1.value=="sp+"?300:0))+
-    ((ending2.value=="0") ? 0:(ending2.value=="normal"? 50:ending2.value=="normal+"?100:ending2.value=="sp"?250:ending2.value=="sp+"?350:0))+
-    ((ending3.value=="0") ? 0:(ending3.value=="normal"? 100:ending3.value=="normal+"?200:0))+
-    ((ending4.value=="0") ? 0:(ending4.value=="normal"? 400:ending4.value=="normal+"?500:0))+
-    ((ending1.value != "0" || ending2.value != "0") && AsaNa.value ? 100 : 0) + 
-    ((ending4.value != "0" && GunDongXianZu.value) ? 50 : 0) 
-)
-const QiTa = computed(() =>//其他加分/扣分 比如取钱量(money)什么的
-  ((BaBieTa.value) ? 50 : 0) + 
-  ((PianBan.value) ? 50 : 0) + 
-  ((typeof (Ya_Gou_Xiong.value) === "number") ? 20*Ya_Gou_Xiong.value : 0) + 
-  ((typeof (Four_Free.value) === "number") ? 10 * Four_Free.value : 0) + 
-  ((typeof (Five_Free.value) === "number") ? 20 * Five_Free.value : 0) + 
-  ((typeof (Six_Free.value) === "number") ? 50 * Six_Free.value : 0)+
-  ((typeof (money.value) === "number") ? Math.min(50*(50-money.value),0) : 0)+
-  ((typeof (Not_Seeing.value) === "number") ? -5*Not_Seeing.value : 0)
+const ResScore = computed(
+	() =>
+		//结局分
+		(ending1.value === "0"
+			? 0
+			: ending1.value === "normal"
+				? 0
+				: ending1.value === "normal+"
+					? 50
+					: ending1.value === "sp"
+						? 200
+						: ending1.value === "sp+"
+							? 300
+							: 0) +
+		(ending2.value === "0"
+			? 0
+			: ending2.value === "normal"
+				? 50
+				: ending2.value === "normal+"
+					? 100
+					: ending2.value === "sp"
+						? 250
+						: ending2.value === "sp+"
+							? 350
+							: 0) +
+		(ending3.value === "0"
+			? 0
+			: ending3.value === "normal"
+				? 100
+				: ending3.value === "normal+"
+					? 200
+					: 0) +
+		(ending4.value === "0"
+			? 0
+			: ending4.value === "normal"
+				? 400
+				: ending4.value === "normal+"
+					? 500
+					: 0) +
+		((ending1.value !== "0" || ending2.value !== "0") && AsaNa.value ? 100 : 0) +
+		(ending4.value !== "0" && GunDongXianZu.value ? 50 : 0),
+);
+const QiTa = computed(
+	() =>
+		//其他加分/扣分 比如取钱量(money)什么的
+		(BaBieTa.value ? 50 : 0) +
+		(PianBan.value ? 50 : 0) +
+		(typeof Ya_Gou_Xiong.value === "number" ? 20 * Ya_Gou_Xiong.value : 0) +
+		(typeof Four_Free.value === "number" ? 10 * Four_Free.value : 0) +
+		(typeof Five_Free.value === "number" ? 20 * Five_Free.value : 0) +
+		(typeof Six_Free.value === "number" ? 50 * Six_Free.value : 0) +
+		(typeof money.value === "number"
+			? Math.min(50 * (50 - money.value), 0)
+			: 0) +
+		(typeof Not_Seeing.value === "number" ? -5 * Not_Seeing.value : 0),
 );
 
-const FinalScore = computed(() =>//总分
-  ((typeof(ExtScore.value) === "number") ? ExtScore.value : 0) + 
-  ((typeof(basscore.value) === "number") ? basscore.value : 0)  + 
-  ((typeof(enjscore.value) === "number") ? enjscore.value : 0) +
-  ((typeof(QiTa.value) === "number") ? QiTa.value : 0)+
-  ((typeof(ResScore.value) === "number") ? ResScore.value : 0)
+const FinalScore = computed(
+	() =>
+		//总分
+		(typeof ExtScore.value === "number" ? ExtScore.value : 0) +
+		(typeof basscore.value === "number" ? basscore.value : 0) +
+		(typeof enjscore.value === "number" ? enjscore.value : 0) +
+		(typeof QiTa.value === "number" ? QiTa.value : 0) +
+		(typeof ResScore.value === "number" ? ResScore.value : 0),
 );
 
-const extlist = ref(//通过的有加分的关卡的列表
-    [],
+const extlist = ref(
+	//通过的有加分的关卡的列表
+	[],
 );
 //ALLext是所有关卡 会自动在中间那里渲染 必须要填 name point floor属性 special是用来判断是否要判定如(关卡是紧急 还有额外加分)等的判定 在函数addext中有相关判定
-const Allext =[{name:"战场侧面",point:10,floor:0,special:true,Jinji:false},{name:"鸭速公路",point:50,floor:0,special:true,Jinji:false},
-{name:"卡兹瀑布",point:30,floor:2},{name:"大棋一盘",point:20,floor:3},{name:"神出鬼没",point:80,floor:4},{name:"混沌",point:50,floor:4},{name:"猩红甬道",point:20,floor:4},{name:"计划耕种",point:40,floor:5},
-{name:"建制",point:100,floor:5,special:true,SuiGu:false,ShiJun:false,WuLou:false},{name:"神圣渴求",point:80,floor:6},{name:"谋求共识",point:80,floor:6},{name:"外道",point:100,floor:6},{name:"洞天福地",point:120,floor:6}];
+const Allext = [
+	{ name: "战场侧面", point: 10, floor: 0, special: true, Jinji: false },
+	{ name: "鸭速公路", point: 50, floor: 0, special: true, Jinji: false },
+	{ name: "卡兹瀑布", point: 30, floor: 2 },
+	{ name: "大棋一盘", point: 20, floor: 3 },
+	{ name: "神出鬼没", point: 80, floor: 4 },
+	{ name: "混沌", point: 50, floor: 4 },
+	{ name: "猩红甬道", point: 20, floor: 4 },
+	{ name: "计划耕种", point: 40, floor: 5 },
+	{
+		name: "建制",
+		point: 100,
+		floor: 5,
+		special: true,
+		SuiGu: false,
+		ShiJun: false,
+		WuLou: false,
+	},
+	{ name: "神圣渴求", point: 80, floor: 6 },
+	{ name: "谋求共识", point: 80, floor: 6 },
+	{ name: "外道", point: 100, floor: 6 },
+	{ name: "洞天福地", point: 120, floor: 6 },
+];
 
-const spe = ref({//用来特判加分的变量 与中间那一框的input type=checkbox 对应
-    JianZhi:{WuLou:false,SuiGu:false,ShiJun:false},Other:{JinJi:false},
+const spe = ref({
+	//用来特判加分的变量 与中间那一框的input type=checkbox 对应
+	JianZhi: { WuLou: false, SuiGu: false, ShiJun: false },
+	Other: { JinJi: false },
 });
 
-function addext(ite) {//加分函数
-    if(ite.special){//有特判的关卡
-        let extra=0;
-        if(ite.name=="鸭速公路") {
-            if(spe.value.Other.JinJi)extra+=20;
-        }
-        else if(ite.name=="战场侧面") {
-            if(spe.value.Other.JinJi)extra+=20;
-        }
-        else if(ite.name=="建制"){//要写其他特判关卡就类似我这么写就行
-            console.log(spe.value);
-            if(spe.value.JianZhi.SuiGu)extra+=30;
-            if(spe.value.JianZhi.ShiJun)extra+=10;
-            if(spe.value.JianZhi.WuLou)extra+=10;
-        }
-        extlist.value.push({id:Math.random(),name:ite.name,point:Allext.filter(item=>item.name==ite.name)[0].point+extra+(AsaNa.value? 20:0)+(GunDongXianZu.value? 10:0)});
-    }//下面是没特判的关卡
-    else extlist.value.push({id:Math.random(),name:ite.name,point:Allext.filter(item=>item.name==ite.name)[0].point+(AsaNa.value? 20:0)+(GunDongXianZu.value? 10:0)});
+function addext(ite) {
+	//加分函数
+	if (ite.special) {
+		//有特判的关卡
+		let extra = 0;
+		if (ite.name === "鸭速公路") {
+			if (spe.value.Other.JinJi) extra += 20;
+		} else if (ite.name === "战场侧面") {
+			if (spe.value.Other.JinJi) extra += 20;
+		} else if (ite.name === "建制") {
+			//要写其他特判关卡就类似我这么写就行
+			console.log(spe.value);
+			if (spe.value.JianZhi.SuiGu) extra += 30;
+			if (spe.value.JianZhi.ShiJun) extra += 10;
+			if (spe.value.JianZhi.WuLou) extra += 10;
+		}
+		extlist.value.push({
+			id: Math.random(),
+			name: ite.name,
+			point:
+				Allext.filter((item) => item.name === ite.name)[0].point +
+				extra +
+				(AsaNa.value ? 20 : 0) +
+				(GunDongXianZu.value ? 10 : 0),
+		});
+	} //下面是没特判的关卡
+	else
+		extlist.value.push({
+			id: Math.random(),
+			name: ite.name,
+			point:
+				Allext.filter((item) => item.name === ite.name)[0].point +
+				(AsaNa.value ? 20 : 0) +
+				(GunDongXianZu.value ? 10 : 0),
+		});
 }
 function delext(id) {
-    extlist.value=extlist.value.filter(item=>item.id!=id);
+	extlist.value = extlist.value.filter((item) => item.id !== id);
 }
 //选择加分处代码
 const floor = ref();
