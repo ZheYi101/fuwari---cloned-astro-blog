@@ -1,11 +1,10 @@
 ---
-title: 苦战之登录页的自动保存apiKey功能略有设计感
-description: 我在开发中遇到了一个涉及初始化异步的问题, 略有设计感, 拿出来聊聊
+title: 自动保存apiKey功能遇初始化异步, 最终确诊水合问题
+description: 我在开发中遇到了一个涉及初始化异步的问题, 一开始我认为是链路设计问题; 在前辈的点拨下发现应当是SSR的水合问题
 published: 2025-09-21
 draft: false
 tags: [前端入门,开发经验]
 category: 前端
-image: /source-of-blog/blog-6%20yibuDesign/fengmian.webp
 ---
 # 场景描述
 前端开发, 写的是登录页 (不过没有实际后端登录接口)
@@ -104,72 +103,13 @@ watch则是让 `isDisabled` 变量与`apiKey`动态同步
 效果大概如图描述(蓝色笔画部分)
 ![alt text](/source-of-blog/blog-6%20yibuDesign/image-3.png)
 
-# 终版设计
+# 误解问题 | 挖坑
 当然, 其实我直接把修改后的初版设计拿来用也是很不赖的, 但是我就是很不爽, 因为太多此一举了, 这解决方案不就是打补丁吗, 并非优秀的设计口牙;
 
-初版里的问题我思考后觉得, 其实是链路设计的问题
-初版里我是
+> 这里容我先戛然而止一下(以下非本文章最初的段落, 是我后来修改过的)
 
->> 初始化时: 
->>1. useApiKey → apiKey → 输入框;
->>2. useApiKey → apiKey → 按钮:disabled
+初版里的问题我思考后觉得, 其实是链路设计的问题. 一开始我自己也是这么认为的 本篇文章里一开始也是这么写的; 但是文章发出来给别人一看 
+被提示了真正的问题所在————ssr渲染模式的水合问题
 
->>后续: 
->>1. 输入框 → apiKey   
->>2. apiKey → useApiKey
->>3. apiKey → 按钮:disabled
-
-后续的链路是没问题的, 但初始化的这两条链路; 有点奇怪不是么? 为什么我的起点一定得是这个useApiKey().
-
-我应当在`apiKey`初始化时就让它带上正确的值, 而不是调用useApiKey()给到`apiKey`,
- 这样子会让`apiKey`在刚刚初始化好,而`useApiKey()`没初始化好的一段**真空期**里, 值是错的.
-
-`useApiKey()`应当只接受从 `apiKey`到它的**单链路**
-所以我设计了新的链路
-
->> 初始化时: 
->>1. apiKey(直接调取**localStorage**) → 输入框;
->>2. apiKey → 按钮:disabled
-
->>后续: 
->>1. 输入框 → apiKey   
->>2. apiKey → useApiKey
->>3. apiKey → 按钮:disabled
-
-不过其实写到最后我已经懒得维护这个`useApiKey()`了, 主要在其他地方也用处不大, 最后索性删了(当然按我这个设计来维护它是没问题的)
-
-最后再展示下我的最终代码
-
-```html
-<el-input
-    v-model="apiKey"
-/>
-<el-button
-    :disabled="isDisabled"
-    @click="handleConfirmAPIKey"
->
-    登录
-</el-button>
-```
-```ts
-// 写成如下的话, 用pnpm run dev跑会500 localStorage is not defined; 具体好像是ssr和ssg相关的原因, 但是背后的道理我并不是很理解, 此处不讲
-// const apiKey = ref<string>(localStorage.getItem(API_KEY_STORAGE_KEY) || "");
-
-const apiKey = ref<string>("");
-
-onMounted(() => {
-  apiKey.value = localStorage.getItem(API_KEY_STORAGE_KEY) || "";
-})
-
-watch(apiKey, (newVal) => {
-  if(newVal) {
-    localStorage.setItem(API_KEY_STORAGE_KEY, newVal);//这里还想维护useApiKey的化, 就改成给useApiKey赋值
-  }
-})
-```
-
-# 结语
-以上, 大概是对`初始化异步`的一次思考;
-说实话其实感觉要不是`<el-button>`的:disabled属性传入参数不能是ref, 同步性不够强, 也不会有这个bug我也不会整半天了
-
-element-plus怎么这么坏啊!
+回头想想, 包括博客在内的话, 我已经接触过三个ssr项目了 所以我觉得我应该是有能力写一篇相关文章的.  
+接下来1~2篇博客里, 我会试着去讲述我使用`ssr`的经验, 以及整理 `水合问题` 的相关原理, 解决方案
