@@ -106,7 +106,7 @@ const key = localStorage.getItem("API_KEY")
 ```
 那么请问, 这么写在ssr渲染的情况下能正常运行吗?
 并不能 我们会收获如下报错
-![alt text](/source-of-blog/blog-7 ssr1/image.png)
+![alt text](/public/source-of-blog/blog-7%20ssr1/image.png)
 
 这里我们会报错; 原因是在 **前置步骤-服务端渲染**
 因为在**服务端上并没有localStorage这个api** , localStorage是浏览器相关的操作，是用来调用浏览器缓存的;

@@ -72,7 +72,9 @@ const apiKey = useApiKey();
 当然, 初版设计一定是有问题的, 不然就不会是初版设计了; 首先这次设计的优点当然是优雅——代码量也少, 使用方式也非常的舒服
 
 问题在于`<el-button>`的 `:disabled`属性, 这个属性传入的是一个 **boolean** 值, 自动更新表现不理想, 出现了如下bug
-![alt text](/source-of-blog/blog-6%20yibuDesign/image-2.png)
+
+![alt text](/source-of-blog/blog-6 yibuDesign/image-2.png)
+
 这里, 我在已有`apiKey`缓存的情况下进入页面(或者原地刷新), 会出现输入框里有字, 但是`<el-button>`的`:disable=true`的情况
 
 # 解决方案
